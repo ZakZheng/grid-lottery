@@ -65,22 +65,22 @@ export default {
   name: 'grid-lottery',
   props: {
     // 转盘转动间隔
-    speed: {
+    interval: {
       type: Number,
       default: 50
     },
     // 是否逐渐减速
-    isSpeedDecreases: {
+    isIntervalIncrease: {
       type: Boolean,
       default: true
     },
     // 减速开始时间
-    speedDecreasesStartTime: {
+    intervalIncreaseStartTime: {
       type: Number,
       default: 3000
     },
     // 最小速度
-    minSpeed: {
+    maxInterval: {
       type: Number,
       default: 500
     },
@@ -197,7 +197,7 @@ export default {
       }
       let time = minTime
       // 动画速度
-      let speed = this.speed
+      let interval = this.interval
       const startRotate = () => {
         this.startFlag = true
         clearTimeout(this.timer)
@@ -208,15 +208,15 @@ export default {
             clearTimeout(this.timer)
             return this.$emit('onEnd', this.formateList[activeIndex])
           }
-          time -= speed
-          if (time < 3000 && this.isSpeedDecreases) {
+          time -= interval
+          if (time < 3000 && this.isIntervalIncrease) {
             // 调整动画速度
-            speed = speed >= this.minSpeed ? this.minSpeed : speed + 20
+            interval = interval >= this.maxInterval ? this.maxInterval : interval + 20
           }
           this.currIndex = this.currIndex >= len - 1 ? 0 : this.currIndex + 1
           this.transform = this.place(this.currIndex)
           return startRotate()
-        }, speed)
+        }, interval)
       }
       startRotate()
     },
