@@ -25,6 +25,10 @@
 - `list: [{id: string | number, sort?: number, }]` : 列表数据, sort 为奖项实际排序， 数组长度尽量为 8/12/16/22 以此类推
 - `itemHeight: number` : 奖项外框高度
 - `itemHeightUnit: string` : 高度单位
+- `interval: number`: 转盘转动间隔
+- `maxInterval: number`: 最大转盘转动间隔
+- `isIntervalIncrease: boolean`: 是否逐渐减速
+- `intervalIncreaseStartTime: number`: 减速开始时间
 - `onStart: () => void` : 点击开始触发
 - `onEnd: (item: T) => void`: 抽奖结束后触发
 
