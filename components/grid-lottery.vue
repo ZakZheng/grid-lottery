@@ -16,21 +16,7 @@
           transform: `translate(${place(index).x}%, ${place(index).y}${itemHeightUnit})`
         }"
       >
-        <view class="mask" :style="{ opacity: index === currIndex ? 0 : 1 }"> </view>
-        <image class="bg" :src="getStaticResourceUrl('user/product-background')" mode="aspectFit" />
-        <view class="content-box">
-          <image class="product-image" :src="item.goods.comMainPic" mode="aspectFit" />
-          <view class="product-title-box">
-            <view
-              class="product-title u-line-2"
-              :style="{
-                fontSize: item.goods.comName.length > 20 ? '16rpx' : '18rpx'
-              }"
-            >
-              {{ item.goods.comName }}
-            </view>
-          </view>
-        </view>
+         <slot name="lottery-item" :scope="{ data: item, index, currIndex }" />
       </view>
     </view>
     <view
@@ -229,80 +215,24 @@ export default {
 
 <style lang="scss" scoped>
 .grid-lottery {
+  width: 100%;
   position: relative;
-
   .start-button {
     position: absolute;
   }
-
   .lottery-list {
     display: flex;
     flex-wrap: wrap;
-
     .lottery-item {
       position: absolute;
       left: 0;
       top: 0;
     }
   }
-
   .activity-box {
     position: absolute;
     top: 0;
     left: 0;
-  }
-}
-
-.lottery-item {
-  color: #1f2638;
-  height: 180rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  position: relative;
-  .mask {
-    position: absolute;
-    top: 6rpx;
-    left: 6rpx;
-    bottom: 6rpx;
-    right: 6rpx;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: 3;
-    border-radius: 12rpx;
-  }
-
-  .bg {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    z-index: 1;
-  }
-
-  .content-box {
-    position: relative;
-    z-index: 2;
-    text-align: center;
-    padding-top: 10rpx;
-
-    .product-image {
-      width: 108rpx;
-      height: 70rpx;
-    }
-
-    .product-title-box {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: calc(2em + 8rpx);
-      font-size: 18rpx;
-    }
-
-    .product-title {
-      color: #1f2638;
-      line-height: 22rpx;
-      padding: 0 15rpx;
-    }
   }
 }
 </style>
